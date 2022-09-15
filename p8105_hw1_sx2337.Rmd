@@ -11,3 +11,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 # Problem 1
+
+In the first step, I install and load the penguins dataset.
+
+```{r}
+#install.packages("palmerpenguins")
+data("penguins", package = "palmerpenguins")
+```
+
+Now I can call the dataset and see the summary of the dataset using summary():
+
+```{r}
+summary(penguins)
+```
+
+
+There are ```r length(penguins)``` number of variables in the dataset, namely species, island, bill_length measuring in mm, bill_depth measuring in mm, flipper_length measuring in mm, body_mass measuring in g, sex and year. The data is recorded from year 2007 to year 2009. The size of the data is ```r ncol(penguins)``` columns and ```r nrow(penguins)``` rows. So there are a total of ```r nrow(penguins)``` individuals included in the dataset.
+
+In the summary, can see that there are three types of species of penguins, namely Adelie, Chinstrap and Gentoo, living on the three islands: Biscoe, Dream and Torgersen. Bill length, bill depth, flipper length and body mass are all continuous variables. The mean
