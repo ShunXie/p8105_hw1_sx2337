@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse) # load the ggplot package 
 ```
 
 
@@ -19,13 +20,30 @@ In the first step, I install and load the penguins dataset.
 data("penguins", package = "palmerpenguins")
 ```
 
-Now I can call the dataset and see the summary of the dataset using summary():
+Now I can call the dataset and see size as well as the summary of the dataset using summary():
 
 ```{r}
+print(ncol(penguins)) #print number of columns 
+print(nrow(penguins)) #print number of rows 
+
 summary(penguins)
 ```
 
 
 There are ```r length(penguins)``` number of variables in the dataset, namely species, island, bill_length measuring in mm, bill_depth measuring in mm, flipper_length measuring in mm, body_mass measuring in g, sex and year. The data is recorded from year 2007 to year 2009. The size of the data is ```r ncol(penguins)``` columns and ```r nrow(penguins)``` rows. So there are a total of ```r nrow(penguins)``` individuals included in the dataset.
 
-In the summary, can see that there are three types of species of penguins, namely Adelie, Chinstrap and Gentoo, living on the three islands: Biscoe, Dream and Torgersen. Bill length, bill depth, flipper length and body mass are all continuous variables. The mean
+In the summary, can see that there are three types of species of penguins, namely Adelie, Chinstrap and Gentoo, living on the three islands: Biscoe, Dream and Torgersen. Bill length, bill depth, flipper length and body mass are all continuous variables. The mean of bill length is 43.92mm, with a maximum value of 59.60mm and a minimum value of 32.10mm. Bill width, on the other hand, has a range from 13.10mm to 21.50mm. The mean value for the width is 17.15mm. The flipper length has a mean of 200.9mm, ranging from 172.0mm to 231.0mm whereas the body mass of a panguins in the sample are all in the range of 2700g and 6300g, with a mean of 4202g. Note that each continuous variables contains 2 missing values in the penguins dataset. 
+
+Here is a scatter plot for flipper length in mm as dependent variable against bill length mm as independent variable (save as penguins_scatter_plot.pdf):
+
+```{r,warning=FALSE}
+ggplot(penguins, aes(x=bill_length_mm,y=flipper_length_mm, color = species))+geom_point()+
+ggtitle("Flipper length vs Bill length")
+ggsave("penguins_scatter_plot.pdf", height = 4, width = 6)
+```
+
+
+
+
+
+
