@@ -47,3 +47,68 @@ ggsave("penguins_scatter_plot.pdf", height = 4, width = 6)
 
 
 
+
+# Section 2
+
+In this section, I will first create a dataframe as required. 
+
+```{r}
+problem2df <- tibble(
+  random_normal = rnorm(10),
+  logic_vec = random_normal>0,
+  character_vec = c('a','b','c','d','e','f','g','h','i','j'),
+  factor_vec = factor(c("high", "medium", "low", "low", "high", "low", "medium","medium", "low","high"))
+  )
+
+```
+
+Try to use mean function to get the mean of all dataframe.
+```{r}
+mean(problem2df)
+```
+
+The result turns out to be NA, as there are different datatypes in the dataframe such as character, numeric value, bool values and factors. Therefore, I compute the means for each column using pull function.
+
+
+```{r}
+first_col <- pull(problem2df,random_normal) 
+print(mean(first_col))
+
+second_col <-pull(problem2df,logic_vec)
+print(mean(second_col)) 
+
+third_col <-pull(problem2df,character_vec)
+print(mean(third_col)) 
+
+fourth_col <-pull(problem2df,factor_vec)
+print(mean(fourth_col)) 
+
+```
+
+Now by computing each columns, only the datatype with logic value and numeric value gives a mean value. Vectors with factors and characters cannot return a value mean value. In logic value, R will interpret TRUE as 1 and FALSE as 0. But it cannot interpret datatypes other than numerical value and logic value.
+
+Here is the result when I use as.numeric function to turn other datatypes into numeric results.
+
+```{r,eval=FALSE}
+num_second_col <- as.numeric(second_col)
+print(num_second_col)
+print(mean(num_second_col))
+
+num_third_col <- as.numeric(third_col)
+print(num_third_col)
+print(mean(num_third_col))
+
+num_fourth_col <- as.numeric(fourth_col)
+print(num_fourth_col)
+print(mean(num_fourth_col))
+
+```
+
+As required, the result is hided.
+But it turns out that R is able to turn bool type and factors into numeric values using as.numeric. Now factors are values 1,2,3 depends on the level of the factor. Also TRUE will become 1 and FALSE will become 0 after using as.numeric. Therefore, both factor and bool type will give a mean in numerical result whereas characters cannot.
+
+This explains what happened when I take the mean. Logic value and numeric value can be interpreted as numbers as discussed before whereas characters cannot. Factors are able to become numeric value based on their level using as.numeric function but it cannot be directly interpreted as a numeric value. Thus, it cannot return mean value without transferring to a numeric value. 
+
+
+
+
